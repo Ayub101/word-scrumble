@@ -95,7 +95,7 @@
         const vegetable = document.querySelector("#vegetable");
  
         const animalName = ["lion","tiger","whale","snake","bear","crocodile","wolf","elephant","bull","monkey"];
-        const programName = ["C","C++","Java","Python","HTML","CSS","Javascript","Nodejs","Reactjs","PHP"];
+        const programName = ["C++","Java","Python","HTML","CSS","Javascript","Nodejs","Reactjs","PHP"];
         const fruitName = ['apple','mango','banana','grapes','orange','pears','kiwi','pineapple','melon','watermelon'];
         const vegetableName = ['cucumber','carrot','cabbage','eggplant','broccoli','corn','beetroot','ladyfinger','spinach','peas'];
         
@@ -184,7 +184,7 @@
                 inputWord = answer.value;
                 if(randomWord === inputWord){
                     type.textContent = `! Winner !`;
-                    greet.textContent = `${player.value} ,You Guess Correctly!`;
+                    greet.textContent = `${player.value} ,You Guess Correctly !`;
                     submitBtn.textContent = `Play Again`;
                     answer.style.display = "none";
                     scrWord.textContent = '';
@@ -193,6 +193,13 @@
                 }
                 else{
                     answer.value = "";
+                    type.textContent = `! Try Next Time !`;
+                    greet.textContent = `${player.value} ,You Guess Incorrectly!`;
+                    submitBtn.textContent = `Play Again`;
+                    answer.style.display = "none";
+                    scrWord.textContent = '';
+                    play = false;
+
                 }
             }
             else{
