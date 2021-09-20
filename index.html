@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word scrumble</title>
+    <style>
+        body{
+            margin: 0%;
+            padding: 0%;
+            text-align: center;
+            background-color: #C1EAA2;
+            align-items: center;
+        }
+        .heading{
+            margin: 0%;
+            background-color: #78AF59;
+            line-height: 15vh;
+        }
+        .content{
+            display: flex;
+            margin: 4em;
+            height: 50vh;
+            
+            justify-content: center;
+            align-items: center;
+            border: 3px solid black;
+            box-shadow: 0px,8px,6px,-6px black;
+        }
+        .buttons{
+            display: none;
+        }
+        .word{
+            display: none;
+        }
+        .name{
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="heading">Word Scramble</h1>
+    </header>
+    <main>
+        <div class="content">
+            <div class="name">
+                <label for="player">Enter your name</label>
+                <input type="text" class="player">
+                <button id="start">Start Game</button>
+            </div>
+            <div class="buttons">
+                <button id="animal">Animals</button>
+                <button id="programming">Programming</button>
+                <button id="fruits">Friuts</button>
+                <button id="vegetable">Vegetable</button>
+            </div>
+            <div class="word">
+                <h2 class="type"></h2>
+                <p class="greet"></p>
+                <p class="scrumble"></p>
+                <input type="text" class="answer">
+                <button class="submit">Submit</button>
+            </div>
+        </div>
+    </main>
+    <script>
+
+        const nameDiv = document.querySelector('.name')
+        const buttons = document.querySelector('.buttons');
+        const words = document.querySelector(".word")
+
+        const start = document.querySelector("#start");
+        let player = document.querySelector('.player')
+
+        const choicePage = () => {
+            if(player.value == ""){
+                return;
+            }
+            else{
+              nameDiv.style.display = 'none';
+              buttons.style.display = 'inline-block'; 
+
+            }
+           
+        }
+        
+        start.addEventListener("click",choicePage);
+
+        
+        const animal = document.querySelector("#animal");
+        const programming = document.querySelector("#programming");
+        const fruits = document.querySelector("#fruits");
+        const vegetable = document.querySelector("#vegetable");
+ 
+        const animalName = ["lion","tiger","whale","snake","bear","crocodile","wolf","elephant","bull","monkey"];
+        const programName = ["C","C++","Java","Python","HTML","CSS","Javascript","Nodejs","Reactjs","PHP"];
+        const fruitName = ['apple','mango','banana','grapes','orange','pears','kiwi','pineapple','melon','watermelon'];
+        const vegetableName = ['cucumber','carrot','cabbage','eggplant','broccoli','corn','beetroot','ladyfinger','spinach','peas'];
+        
+        const type = document.querySelector('.type');
+        const greet = document.querySelector('.greet');
+        const scrWord = document.querySelector('.scrumble');
+        const answer = document.querySelector('.answer');
+        const submitBtn = document.querySelector('.submit');
+
+        let randomWord = "";
+        let scrumbleWord = "";
+        let inputWord = "";
+        let play = false;
+
+        function getRandomWord(arr){
+            ramdomIndex = Math.floor(Math.random()*arr.length);
+            return arr[ramdomIndex];
+        }
+        
+        function getScrumbleWord(arr){
+            arr = arr.split("");
+            let temp;
+            for(let i = arr.length -1; i>=0 ;i--){
+                let j = Math.floor(Math.random()*(i+1));
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            newArr = arr.join("");
+            return newArr;
+        }
+
+        function gotogame(btnName){
+
+            buttons.style.display = 'none';
+            type.textContent = `Words on ${btnName}`;
+            greet.textContent = `hey! ${player.value} your word is:`;
+            submitBtn.textContent = `Submit`;
+            answer.style.display = "inline";
+            answer.value = '';
+            if(btnName == 'Animals'){
+                randomWord = getRandomWord(animalName);
+                scrumbleWord = getScrumbleWord(randomWord);
+                scrWord.textContent = scrumbleWord;
+                inputWord = answer.value;
+            }
+            else if(btnName == 'Programming'){
+                randomWord = getRandomWord(programName);
+                scrumbleWord = getScrumbleWord(randomWord);
+                scrWord.textContent = scrumbleWord;
+                inputWord = answer.value;
+            }
+            else if(btnName == 'Friuts'){
+                randomWord = getRandomWord(fruitName);
+                scrumbleWord = getScrumbleWord(randomWord);
+                scrWord.textContent = scrumbleWord;
+                inputWord = answer.value;
+            }
+            else if(btnName == 'Vegetable'){
+                randomWord = getRandomWord(vegetableName);
+                scrumbleWord = getScrumbleWord(randomWord);
+                scrWord.textContent = scrumbleWord;
+            }
+            words.style.display = 'inline';
+        }
+        
+        animal.addEventListener("click",function(){
+            play = true;
+            gotogame(animal.innerHTML);
+            });
+        fruits.addEventListener("click",function(){
+            play = true;
+            gotogame(fruits.innerHTML);
+            });
+        vegetable.addEventListener("click",function(){
+            play = true;
+            gotogame(vegetable.innerHTML);
+            });
+        programming.addEventListener("click",function(){
+            play = true;
+            gotogame(programming.innerHTML);
+            });
+
+            function checkword(){
+            if(play){
+                inputWord = answer.value;
+                if(randomWord === inputWord){
+                    type.textContent = `! Winner !`;
+                    greet.textContent = `${player.value} ,You Guess Correctly!`;
+                    submitBtn.textContent = `Play Again`;
+                    answer.style.display = "none";
+                    scrWord.textContent = '';
+                    play = false;
+                    player.value = '';
+                }
+                else{
+                    answer.value = "";
+                }
+            }
+            else{
+                buttons.style.display = 'none';
+                words.style.display = 'none'
+                nameDiv.style.display = 'inline-block';
+
+            }
+        }
+
+        submitBtn.addEventListener("click",checkword);
+    </script>
+</body>
+</html>
