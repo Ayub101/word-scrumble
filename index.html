@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word scrumble</title>
-   
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <h1 class="heading">Word Scramble</h1>
-    </header>
-    <main>
+
+<body class="bg-gradient-to-l from-blue-400 via-indigo-400 to-purple-200 mt-32 ">
+    <div class="border-2 bg-pink-200 border-pink-300 shadow-2xl rounded-3xl  sm:ml-48 sm:w-2/5 md:ml-72 md:w-2/5
+                 lg:w-2/5 lg:ml-96 xl:ml-100 xl:w-2/5 ">
+        <h1 class="heading text-5xl font-semibold py-8 ">Word Scramble</h1>
         <div class="content">
-            <div class="name">
-                <label for="player">Enter your name</label>
-                <input type="text" class="player">
-                <button id="start">Start Game</button>
+            <div class="name ">
+                <div class="block py-4 mx-auto" >
+                    <label for="player" class="text-2xl">Enter your name: </label>
+                    <input type="text"
+                        class="player text-xl rounded focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent">
+                </div>
+                <button id="start"
+                    class="text-xl font-normal bg-indigo-400 px-5 py-2 mt-10 mb-20 rounded-2xl hover:bg-indigo-500 hover:text-white ">Start
+                    Game</button>
+
             </div>
-            <div class="buttons">
-                <button id="animal">Animals</button>
-                <button id="programming">Programming</button>
-                <button id="fruits">Friuts</button>
-                <button id="vegetable">Vegetable</button>
+            <div class="buttons block py-3 mx-auto">
+                <h3 class="text-2xl font-normal pb-4 mx-auto">Choose Words From</h3>
+                <button id="animal" class="text-xl font-normal bg-indigo-400 px-5 py-2 mb-4 mx-auto rounded-2xl hover:bg-indigo-500 hover:text-white block">Animals</button>
+                <button id="programming" class="text-xl font-normal bg-indigo-400 px-5 py-2 mb-4 mx-auto rounded-2xl hover:bg-indigo-500 hover:text-white block">Programming</button>
+                <button id="fruits" class="text-xl font-normal bg-indigo-400 px-5 py-2 mb-4 mx-auto rounded-2xl hover:bg-indigo-500 hover:text-white block">Friuts</button>
+                <button id="vegetable" class="text-xl font-normal bg-indigo-400 px-5 py-2 mb-7  mx-auto rounded-2xl hover:bg-indigo-500 hover:text-white block">Vegetable</button>
             </div>
-            <div class="word">
-                <h2 class="type"></h2>
-                <p class="greet"></p>
-                <p class="scrumble"></p>
-                <input type="text" class="answer">
-                <button class="submit">Submit</button>
+            <div class="word block py-3">
+                <h2 class="type text-3xl font-normal py-2 "></h2>
+                <p class="greet text-2xl font-normal py-2 "></p>
+                <p class="scrumble text-4xl font-extrabold py-3"></p>
+                <input type="text" class="answer block text-xl rounded focus:outline-none focus:ring-2 focus:ring-pink-600 focus:border-transparent">
+                <button class="submit block text-xl font-normal bg-indigo-400 px-5 py-2 mx-auto my-7 rounded-2xl hover:bg-indigo-500 hover:text-white ">Submit</button>
             </div>
         </div>
-    </main>
+    </div>
     <script>
 
         const nameDiv = document.querySelector('.name')
@@ -43,30 +52,30 @@
         let player = document.querySelector('.player')
 
         const choicePage = () => {
-            if(player.value == ""){
+            if (player.value == "") {
                 return;
             }
-            else{
-              nameDiv.style.display = 'none';
-              buttons.style.display = 'inline-block'; 
+            else {
+                nameDiv.style.display = 'none';
+                buttons.style.display = 'inline-block';
 
             }
-           
-        }
-        
-        start.addEventListener("click",choicePage);
 
-        
+        }
+
+        start.addEventListener("click", choicePage);
+
+
         const animal = document.querySelector("#animal");
         const programming = document.querySelector("#programming");
         const fruits = document.querySelector("#fruits");
         const vegetable = document.querySelector("#vegetable");
- 
-        const animalName = ["lion","tiger","whale","snake","bear","crocodile","wolf","elephant","bull","monkey"];
-        const programName = ["C++","Java","Python","HTML","CSS","Javascript","Nodejs","Reactjs","PHP"];
-        const fruitName = ['apple','mango','banana','grapes','orange','pears','kiwi','pineapple','melon','watermelon'];
-        const vegetableName = ['cucumber','carrot','cabbage','eggplant','broccoli','corn','beetroot','ladyfinger','spinach','peas'];
-        
+
+        const animalName = ["lion", "tiger", "whale", "snake", "bear", "crocodile", "wolf", "elephant", "bull", "monkey"];
+        const programName = ["C++", "Java", "Python", "HTML", "CSS", "Javascript", "Nodejs", "Reactjs", "PHP"];
+        const fruitName = ['apple', 'mango', 'banana', 'grapes', 'orange', 'pears', 'kiwi', 'pineapple', 'melon', 'watermelon'];
+        const vegetableName = ['cucumber', 'carrot', 'cabbage', 'eggplant', 'broccoli', 'corn', 'beetroot', 'ladyfinger', 'spinach', 'peas'];
+
         const type = document.querySelector('.type');
         const greet = document.querySelector('.greet');
         const scrWord = document.querySelector('.scrumble');
@@ -78,16 +87,16 @@
         let inputWord = "";
         let play = false;
 
-        function getRandomWord(arr){
-            ramdomIndex = Math.floor(Math.random()*arr.length);
+        function getRandomWord(arr) {
+            ramdomIndex = Math.floor(Math.random() * arr.length);
             return arr[ramdomIndex];
         }
-        
-        function getScrumbleWord(arr){
+
+        function getScrumbleWord(arr) {
             arr = arr.split("");
             let temp;
-            for(let i = arr.length -1; i>=0 ;i--){
-                let j = Math.floor(Math.random()*(i+1));
+            for (let i = arr.length - 1; i >= 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
                 temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
@@ -96,7 +105,7 @@
             return newArr;
         }
 
-        function gotogame(btnName){
+        function gotogame(btnName) {
 
             buttons.style.display = 'none';
             type.textContent = `Words on ${btnName}`;
@@ -104,53 +113,53 @@
             submitBtn.textContent = `Submit`;
             answer.style.display = "inline";
             answer.value = '';
-            if(btnName == 'Animals'){
+            if (btnName == 'Animals') {
                 randomWord = getRandomWord(animalName);
                 scrumbleWord = getScrumbleWord(randomWord);
                 scrWord.textContent = scrumbleWord;
                 inputWord = answer.value;
             }
-            else if(btnName == 'Programming'){
+            else if (btnName == 'Programming') {
                 randomWord = getRandomWord(programName);
                 scrumbleWord = getScrumbleWord(randomWord);
                 scrWord.textContent = scrumbleWord;
                 inputWord = answer.value;
             }
-            else if(btnName == 'Friuts'){
+            else if (btnName == 'Friuts') {
                 randomWord = getRandomWord(fruitName);
                 scrumbleWord = getScrumbleWord(randomWord);
                 scrWord.textContent = scrumbleWord;
                 inputWord = answer.value;
             }
-            else if(btnName == 'Vegetable'){
+            else if (btnName == 'Vegetable') {
                 randomWord = getRandomWord(vegetableName);
                 scrumbleWord = getScrumbleWord(randomWord);
                 scrWord.textContent = scrumbleWord;
             }
             words.style.display = 'inline';
         }
-        
-        animal.addEventListener("click",function(){
+
+        animal.addEventListener("click", function () {
             play = true;
             gotogame(animal.innerHTML);
-            });
-        fruits.addEventListener("click",function(){
+        });
+        fruits.addEventListener("click", function () {
             play = true;
             gotogame(fruits.innerHTML);
-            });
-        vegetable.addEventListener("click",function(){
+        });
+        vegetable.addEventListener("click", function () {
             play = true;
             gotogame(vegetable.innerHTML);
-            });
-        programming.addEventListener("click",function(){
+        });
+        programming.addEventListener("click", function () {
             play = true;
             gotogame(programming.innerHTML);
-            });
+        });
 
-            function checkword(){
-            if(play){
+        function checkword() {
+            if (play) {
                 inputWord = answer.value;
-                if(randomWord === inputWord){
+                if (randomWord === inputWord) {
                     type.textContent = `! Winner !`;
                     greet.textContent = `${player.value} ,You Guess Correctly !`;
                     submitBtn.textContent = `Play Again`;
@@ -159,7 +168,7 @@
                     play = false;
                     player.value = '';
                 }
-                else{
+                else {
                     answer.value = "";
                     type.textContent = `! Try Next Time !`;
                     greet.textContent = `${player.value} ,You Guess Incorrectly!`;
@@ -170,7 +179,7 @@
 
                 }
             }
-            else{
+            else {
                 buttons.style.display = 'none';
                 words.style.display = 'none'
                 nameDiv.style.display = 'inline-block';
@@ -178,7 +187,8 @@
             }
         }
 
-        submitBtn.addEventListener("click",checkword);
+        submitBtn.addEventListener("click", checkword);
     </script>
 </body>
+
 </html>
